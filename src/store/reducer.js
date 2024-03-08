@@ -1,6 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { contactsReducer } from './coontact/contactsReducer';
+import { contactsReducer } from './slice';
 
-export const rootReducer = createReducer({
-  contacts: contactsReducer,
-});
+export const reducer = {
+  phonebook: contactsReducer,
+};

@@ -1,23 +1,12 @@
-import { useState, useEffect } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
+import { useDispatch, useSelector } from 'react-redux';
+import { createContact, deleteContact } from 'store/slice';
 
 const App = () => {
-  const CONTACTS_LS_KEY = 'contacts';
-
-  const getContactsFromLS = () => {
-    const savedContacts = localStorage.getItem(CONTACTS_LS_KEY);
-    return savedContacts ? JSON.parse(savedContacts) : [];
-  };
-
-  const [contacts, setContacts] = useState(getContactsFromLS());
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    const contactsJsonString = JSON.stringify(contacts);
-    localStorage.setItem(CONTACTS_LS_KEY, contactsJsonString);
-  }, [contacts]);
+  const dispatch = useDispatch();
+  const { contacts, filter } = useSelector(state => state.phonebook);
 
   const addContact = contact => {
     if (hasContact(contact.name)) {
@@ -25,15 +14,13 @@ const App = () => {
       return false;
     }
 
-    setContacts([...contacts, contact]);
+    console.log('contact>> ', contact);
+    dispatch(createContact(contact));
     return true;
   };
 
   const removeContact = contactId => {
-    const updatedContacts = contacts.filter(
-      contact => contact.id !== contactId
-    );
-    setContacts(updatedContacts);
+    dispatch(deleteContact(contactId));
   };
 
   const hasContact = name => {
@@ -43,6 +30,7 @@ const App = () => {
   };
 
   const getFilteredContacts = () => {
+    console.log('filter>>', filter);
     if (!filter.trim()) {
       return contacts;
     }
@@ -50,6 +38,11 @@ const App = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase().trim())
     );
+  };
+
+  const updateFilter = value => {
+    console.log('filter value>> ', value);
+    // dispatch(updateFilter(value));
   };
 
   return (
@@ -68,7 +61,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
-      <Filter filter={filter} updateFilter={setFilter} />
+      <Filter filter={filter} updateFilter={updateFilter} />
       <ContactList
         contacts={getFilteredContacts()}
         removeContact={removeContact}
