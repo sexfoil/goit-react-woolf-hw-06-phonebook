@@ -9,7 +9,13 @@ const Filter = ({ filter, updateFilter }) => {
         name="filter"
         id="filter"
         value={filter}
-        onChange={evt => updateFilter(evt.target.value)}
+        onChange={evt => {
+          const value = evt.target.value;
+          console.log('f:', filter);
+          console.log('v:', value);
+
+          return updateFilter(value);
+        }}
       ></input>
     </div>
   );

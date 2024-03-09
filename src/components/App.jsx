@@ -30,8 +30,9 @@ const App = () => {
   };
 
   const getFilteredContacts = () => {
-    console.log('filter>>', filter);
+    console.log('get filtered contacts>> ', filter);
     if (!filter.trim()) {
+      console.log('trim filter');
       return contacts;
     }
 
