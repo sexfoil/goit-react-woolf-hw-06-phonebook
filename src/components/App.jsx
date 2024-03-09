@@ -8,6 +8,9 @@ const App = () => {
   const dispatch = useDispatch();
   const { contacts, filter } = useSelector(state => state.phonebook);
 
+  console.log(contacts);
+  console.log('init_f', filter);
+
   const addContact = contact => {
     if (hasContact(contact.name)) {
       alert(`${contact.name} is already in contacts.`);
@@ -30,9 +33,7 @@ const App = () => {
   };
 
   const getFilteredContacts = () => {
-    console.log('get filtered contacts>> ', filter);
     if (!filter.trim()) {
-      console.log('trim filter');
       return contacts;
     }
 
@@ -42,8 +43,10 @@ const App = () => {
   };
 
   const updateFilter = value => {
-    console.log('filter value>> ', value);
-    // dispatch(updateFilter(value));
+    console.log('===value>> ', value);
+    console.log('==filter>> ', filter);
+    dispatch(updateFilter(value));
+    console.log('filter ===>> ', filter);
   };
 
   return (

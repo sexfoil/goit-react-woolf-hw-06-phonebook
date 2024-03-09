@@ -1,6 +1,7 @@
 import css from './Filter.module.css';
 
 const Filter = ({ filter, updateFilter }) => {
+  console.log('f: ', filter);
   return (
     <div className={css.search}>
       <label htmlFor="filter">Find contacts by name</label>
@@ -9,13 +10,7 @@ const Filter = ({ filter, updateFilter }) => {
         name="filter"
         id="filter"
         value={filter}
-        onChange={evt => {
-          const value = evt.target.value;
-          console.log('f:', filter);
-          console.log('v:', value);
-
-          return updateFilter(value);
-        }}
+        onChange={evt => updateFilter(evt.target.value)}
       ></input>
     </div>
   );
