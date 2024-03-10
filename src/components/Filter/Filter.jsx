@@ -1,6 +1,16 @@
 import css from './Filter.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilter } from 'store/selector';
+import { updateFilter } from 'store/slice';
 
-const Filter = ({ filter, updateValue }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
+
+  const updateValue = value => {
+    dispatch(updateFilter(value));
+  };
+
   return (
     <div className={css.search}>
       <label htmlFor="filter">Find contacts by name</label>

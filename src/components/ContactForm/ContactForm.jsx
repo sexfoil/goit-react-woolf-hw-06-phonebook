@@ -1,7 +1,29 @@
 import css from './ContactForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
+import { selectContacts } from 'store/selector';
+import { createContact } from 'store/slice';
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+
+  const addContact = contact => {
+    if (hasContact(contact.name)) {
+      alert(`${contact.name} is already in contacts.`);
+      return false;
+    }
+
+    dispatch(createContact(contact));
+    return true;
+  };
+
+  const hasContact = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim()
+    );
+  };
+
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
