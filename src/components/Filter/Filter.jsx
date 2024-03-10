@@ -1,7 +1,6 @@
 import css from './Filter.module.css';
 
 const Filter = ({ filter, updateValue }) => {
-  console.log('f: ', filter);
   return (
     <div className={css.search}>
       <label htmlFor="filter">Find contacts by name</label>
