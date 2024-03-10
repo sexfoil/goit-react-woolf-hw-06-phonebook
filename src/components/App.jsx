@@ -2,14 +2,11 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import { useDispatch, useSelector } from 'react-redux';
-import { createContact, deleteContact } from 'store/slice';
+import { createContact, deleteContact, updateFilter } from 'store/slice';
 
 const App = () => {
   const dispatch = useDispatch();
   const { contacts, filter } = useSelector(state => state.phonebook);
-
-  console.log(contacts);
-  console.log('init_f', filter);
 
   const addContact = contact => {
     if (hasContact(contact.name)) {
@@ -17,7 +14,6 @@ const App = () => {
       return false;
     }
 
-    console.log('contact>> ', contact);
     dispatch(createContact(contact));
     return true;
   };
@@ -42,11 +38,8 @@ const App = () => {
     );
   };
 
-  const updateFilter = value => {
-    console.log('===value>> ', value);
-    console.log('==filter>> ', filter);
+  const updateFilterValue = value => {
     dispatch(updateFilter(value));
-    console.log('filter ===>> ', filter);
   };
 
   return (
@@ -65,7 +58,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
-      <Filter filter={filter} updateFilter={updateFilter} />
+      <Filter filter={filter} updateValue={updateFilterValue} />
       <ContactList
         contacts={getFilteredContacts()}
         removeContact={removeContact}

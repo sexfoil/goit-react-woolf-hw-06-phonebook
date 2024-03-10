@@ -1,6 +1,6 @@
 import css from './Filter.module.css';
 
-const Filter = ({ filter, updateFilter }) => {
+const Filter = ({ filter, updateValue }) => {
   console.log('f: ', filter);
   return (
     <div className={css.search}>
@@ -10,7 +10,7 @@ const Filter = ({ filter, updateFilter }) => {
         name="filter"
         id="filter"
         value={filter}
-        onChange={evt => updateFilter(evt.target.value)}
+        onChange={evt => updateValue(evt.target.value)}
       ></input>
     </div>
   );
